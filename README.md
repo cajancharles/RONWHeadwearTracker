@@ -1,53 +1,46 @@
 # RTNW Headwear Codex
 
-A single-page crafting tracker for the RTNW headwear list — 44 items across 6 towns
-(Prontera, Morroc, Alberta, Payon, Geffen, Izlude), each showing the blueprint needed
-(if any), the doll requirement, the element core, and the coin cost.
+A single-page crafting tracker for the RTNW headwear list — 44 items across six towns
+(Prontera, Morroc, Alberta, Payon, Geffen, Izlude). For every headwear item it shows
+the town it's found in, the blueprint it needs (if any), the doll requirement, the
+element core, and the coin cost to craft it.
 
-Everything lives in `index.html` — no build step, no dependencies to install.
+Everything lives in one self-contained `index.html` file — no build step, no
+dependencies, nothing to install. Open it in a browser and it works.
 
-## Publish it on GitHub Pages
+## Features
 
-1. Create a new GitHub repo (or use an existing one) and add `index.html` to the root.
-2. Push it to GitHub.
-3. In the repo, go to **Settings → Pages**.
-4. Under **Build and deployment → Source**, choose **Deploy from a branch**.
-5. Pick your default branch (e.g. `main`) and `/ (root)` as the folder, then **Save**.
-6. GitHub will give you a URL like `https://yourusername.github.io/your-repo/` within a
-   minute or two — that's your live tracker.
+**Browse by town.** Tabs across the top filter to a single town, or stay on
+**All Towns** to see everything grouped by map, each with its own crafted count.
 
-## Using it
+**Search.** Find a headwear item or the doll it needs by typing in the search box.
 
-- Click a town tab to filter to that map, or stay on **All Towns** to see everything
-  grouped by map.
-- Use the search box to find a headwear item or the doll it needs.
-- Toggle **Blueprint only** to see just the items that require a blueprint.
-- Click the checkbox on any card to mark it crafted — progress is saved in your
-  browser (`localStorage`), so it's there next time you open the page. It's local to
-  each browser/device, not synced anywhere.
-- "reset all progress" at the bottom clears every checkmark.
+**Blueprint filter.** Toggle **Blueprint only** to see just the items that need a
+blueprint to craft.
+
+**My Stockpile — track what you own.** Open the **My Stockpile** panel to enter how
+much Adv. Coin, and how many of each element core and doll, you're currently holding.
+Every card updates automatically to show `have / need` for its doll, core, and coin
+requirements — green when you have enough, red with "need X more" when you're short.
+Items you can fully craft right now get a **"✓ Ready to craft"** pill, and the
+**Craftable now** toggle filters the list down to just those.
+
+Two pairs of doll names in the source sheet were spelled two different ways
+(Bahoment Jr. / Baphoment Jr., and Familiar / Familliar) — the tracker treats each
+pair as one doll so you only enter a count once.
+
+**Crafted checklist.** Click the checkbox on any card to mark it crafted. The header
+progress bar and each town's tab count update to match.
+
+**Saved automatically.** Your stockpile counts and crafted checkmarks are saved in
+your browser (`localStorage`) as you go, so they're still there next time you open
+the page. This is local to the browser/device you're using — it isn't synced
+anywhere. Use **reset crafted progress** or **reset stockpile** in the footer to
+clear either one.
 
 ## Editing the data
 
-All the data is a single JS array (`DATA`) near the top of the `<script>` tag in
-`index.html` — each item has `map`, `headwear`, `blueprint`, `dollQty`, `dollName`,
-`coreQty`, `coreName`, and `coin`. Edit that array directly to add, remove, or fix
-entries; no rebuild needed, just save and refresh.
-
-## Tracking what you own (new)
-
-Click **My Stockpile** in the toolbar to open the input panel. Enter:
-- how much **Adv. Coin** you're holding
-- how many of each **element core** you have
-- how many of each **doll** you have
-
-Every card below updates instantly to show `have / need` for its doll, core, and coin
-requirements — green when you have enough, red with "need X more" when you're short.
-Cards that are fully covered get a **"✓ Ready to craft"** pill, and you can flip on
-**Craftable now** in the toolbar to show only those. Everything you enter is saved in
-your browser (`localStorage`) alongside your crafted checkmarks, so it's still there
-next time you open the page.
-
-Two pairs of doll names in the original sheet are spelled two different ways
-(Bahoment Jr. / Baphoment Jr., and Familiar / Familliar) — the tracker treats each
-pair as the same doll so you only enter a count once.
+All the item data is a single JS array (`DATA`) near the top of the `<script>` tag
+in `index.html` — each entry has `map`, `headwear`, `blueprint`, `dollQty`,
+`dollName`, `coreQty`, `coreName`, and `coin`. Edit that array directly to add,
+remove, or fix entries — just save the file and refresh the page.
