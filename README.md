@@ -1,43 +1,78 @@
-# Ragnarok: The New World - Headwear Tracker
+# RTNW Headwear Codex
 
-A single-page crafting tracker for the RONW headwear list — 44 items across six towns
-(Prontera, Morroc, Alberta, Payon, Geffen, Izlude). For every headwear item it shows
-the town it's found in, the blueprint it needs (if any), the doll requirement, the
-element core, and the coin cost to craft it.
+A free, browser-based crafting tracker for headwear — hats, masks, and trinkets — in **Ragnarok: The New World**. Enter what dolls, element cores, and coin you're holding, and instantly see what you can craft right now, what you're missing, and how close you are to finishing every headwear item across all six towns.
 
-Everything lives in one self-contained `index.html` file — no build step, no
-dependencies, nothing to install. Open it in a browser and it works.
+**Live app:** [https://cajancharles.github.io/RONWHeadwearTracker/](https://cajancharles.github.io/RONWHeadwearTracker/)
+
+Created by [@CharlesPlaysGG](https://www.youtube.com/@CharlesPlaysGG)
+
+---
 
 ## Features
 
-**Browse by town.** Tabs across the top filter to a single town, or stay on
-**All Towns** to see everything grouped by map, each with its own crafted count.
+- **Six towns, one codex** — Prontera, Morroc, Alberta, Payon, Geffen, and Izlude each get their own tab, plus an "All Towns" view, so you can track your whole headwear collection or focus on one town at a time
+- **Codex progress tracker** — a running count and progress bar (e.g. `2 / 44 crafted`) for the whole codex, with a matching per-town count on each tab
+- **My Stockpile** — one place to enter everything you're holding:
+  - **Advance Coin** — the coin used to pay crafters
+  - **Element Cores** — Fire, Water, Wind, Earth, Poison, Ghost, Shadow, Neutral, and Undead
+  - **Dolls** — every farmable doll used in headwear recipes (Baphomet, Bigfoot, Chonchon, Familiar, Goblin, Lunatic, Mantis, Marina, Marina Jr., Metaller, Muka, Mummy, Nine Tail, Orc Baby, Peco Peco, Picky, Poring, Savage Babe, Sidewinder, Smokie, Soldier Skeleton, Spore, Whisper, Yoyo, Zombie, and more)
+  - Every item card below updates automatically as you type — no need to hit save or refresh
+- **Per-item requirement cards** — each headwear item shows exactly what it costs to craft:
+  - Whether a **blueprint** is required, and its "not yet" / owned status
+  - The **doll** it's made from, with your current amount vs. the amount needed — shown as "spare" when you have enough, or "need X more" when you don't
+  - The **element core** it binds, with the same have/need breakdown
+  - The **Advance Coin** cost, with the same have/need breakdown
+- **Crafted tracking** — mark an item as crafted and it gets a checkmark and a strikethrough title, so your codex progress and "done" list are always clear at a glance
+- **Craftable now filter** — toggle on to instantly see only the items you have enough of everything for, right now
+- **Blueprint only filter** — toggle on to see just the items that require a blueprint you haven't picked up yet
+- **Search** — find any headwear item or doll by name instantly
+- **Everything saves automatically** — no login, no server, no setup. Your stockpile and crafted progress are saved right in your browser
+- **Your data stays yours** — nothing is uploaded anywhere; see [Data & Privacy](#data--privacy) below
 
-**Search.** Find a headwear item or the doll it needs by typing in the search box.
+## How to Use
 
-**Blueprint filter.** Toggle **Blueprint only** to see just the items that need a
-blueprint to craft.
+### 1. Enter your stockpile
+Open **My Stockpile** and fill in what you're currently holding — your Advance Coin, each Element Core, and each Doll. Every item card on the page below recalculates automatically as you type.
 
-**My Stockpile — track what you own.** Open the **My Stockpile** panel to enter how
-much Adv. Coin, and how many of each element core and doll, you're currently holding.
-Every card updates automatically to show `have / need` for its doll, core, and coin
-requirements — green when you have enough, red with "need X more" when you're short.
-Items you can fully craft right now get a **"✓ Ready to craft"** pill, and the
-**Craftable now** toggle filters the list down to just those.
+### 2. Browse by town
+Use the tabs at the top (**All Towns**, **Prontera**, **Morroc**, **Alberta**, **Payon**, **Geffen**, **Izlude**) to see the headwear items for that town, along with a live crafted count for each.
 
-Two pairs of doll names in the source sheet were spelled two different ways
-(Bahoment Jr. / Baphoment Jr., and Familiar / Familliar) — the tracker treats each
-pair as one doll so you only enter a count once.
+### 3. Check what you need
+Each item card shows its blueprint requirement (if any), the doll and element core it needs, and the coin cost — each with a have/need breakdown so you know exactly what's left to farm.
 
-**Crafted checklist.** Click the checkbox on any card to mark it crafted. The header
-progress bar and each town's tab count update to match.
+### 4. Filter down to what matters
+- Turn on **Craftable now** to see only the items you can make with what you've already entered
+- Turn on **Blueprint only** to see only items still waiting on a blueprint
+- Use the **search bar** to jump straight to a specific item or doll
 
-**Saved automatically.** Your stockpile counts and crafted checkmarks are saved in
-your browser (`localStorage`) as you go, so they're still there next time you open
-the page. This is local to the browser/device you're using — it isn't synced
-anywhere. Use **reset crafted progress** or **reset stockpile** in the footer to
-clear either one.
+### 5. Mark items off as you craft them
+Check an item off once you've crafted it — its title gets struck through and it's added to your codex progress count, both for that town and for the whole codex.
 
+---
+
+## Data & Privacy
+
+This app has **no backend, no database, and no login.** Everything — your stockpile and crafted progress — is saved using your browser's local storage.
+
+That means:
+
+- **Your data lives only on your device**, in the browser you're using. Nobody else can see it, and it's never sent anywhere.
+- **Each person who opens this app gets their own separate, empty starting point.**
+- **Your data persists between visits** as long as you keep using the same browser on the same device and don't clear your browsing data.
+- **Switching browsers or devices means starting over** in that new browser/device.
+
+This project intentionally keeps things simple and serverless so anyone can use or host it for free.
+
+---
+
+## Self-Hosting / Forking
+
+Want to run your own copy, or customize it for your own crafting list?
+
+1. Fork or download this repository
+2. Edit `index.html` directly — it's a single self-contained file (HTML, CSS, and JavaScript all in one)
+3. Host it anywhere that serves static files: GitHub Pages, Netlify, Vercel, or just open the file locally in your browser
+4. No build step, no dependencies, no server required
 
 ---
 
@@ -57,7 +92,7 @@ Built by [@CharlesPlaysGG](https://www.youtube.com/@CharlesPlaysGG)
 
 ## Support
 
-If this tool saves your guild some headaches, consider supporting the project — every bit helps keep it maintained and free for everyone.
+If this tool saves you some grinding headaches, consider supporting the project — every bit helps keep it maintained and free for everyone.
 
 **Crypto:**
 
@@ -81,4 +116,3 @@ Not affiliated with Gravity Co., Ltd. or Ragnarok: The New World. This is an uno
 ## License
 
 MIT — free to use, modify, and share.
-
