@@ -1,6 +1,6 @@
-# RTNW Headwear Codex
+# Ragnarok: The New World - Headwear Tracker
 
-A single-page crafting tracker for the RTNW headwear list — 44 items across six towns
+A single-page crafting tracker for the RONW headwear list — 44 items across six towns
 (Prontera, Morroc, Alberta, Payon, Geffen, Izlude). For every headwear item it shows
 the town it's found in, the blueprint it needs (if any), the doll requirement, the
 element core, and the coin cost to craft it.
@@ -38,9 +38,47 @@ the page. This is local to the browser/device you're using — it isn't synced
 anywhere. Use **reset crafted progress** or **reset stockpile** in the footer to
 clear either one.
 
-## Editing the data
 
-All the item data is a single JS array (`DATA`) near the top of the `<script>` tag
-in `index.html` — each entry has `map`, `headwear`, `blueprint`, `dollQty`,
-`dollName`, `coreQty`, `coreName`, and `coin`. Edit that array directly to add,
-remove, or fix entries — just save the file and refresh the page.
+---
+
+## Tech
+
+Just plain HTML, CSS, and vanilla JavaScript. No frameworks, no build tools, no npm install. Open the file and it works.
+
+---
+
+## Credits
+
+Built by [@CharlesPlaysGG](https://www.youtube.com/@CharlesPlaysGG)
+
+- YouTube: https://www.youtube.com/@CharlesPlaysGG
+- TikTok: http://tiktok.com/@charlesplaysgg
+- Twitch: _(coming soon)_
+
+## Support
+
+If this tool saves your guild some headaches, consider supporting the project — every bit helps keep it maintained and free for everyone.
+
+**Crypto:**
+
+| Currency | Address |
+|---|---|
+| BTC | `15zZzbk9t4Gf9xsaNJ7FqoomKmgjJyKWvE` |
+| BNB (BEP20) | `0xceacfec618768e01a1dd68fe407f69f1b87162b3` |
+| USDT (TRON) | `TYmZd9LntLQXs2GhK9D49Y5AehUPLadJme` |
+| Solana | `o6TZyGN23P9ju2i9EuENT7XNdM5na2pmMtUq4w5ukco` |
+
+**GCash:**
+
+<p align="center">
+  <img src="gcash-qr.jpg" alt="GCash QR code for donations" width="250">
+</p>
+
+## Disclaimer
+
+Not affiliated with Gravity Co., Ltd. or Ragnarok: The New World. This is an unofficial, fan-made tool.
+
+## License
+
+MIT — free to use, modify, and share.
+
