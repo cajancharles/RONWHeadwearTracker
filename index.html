@@ -3,22 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RTNW Headwear Codex</title>
+<title>RONW Headwear Tracker by @CharlesPlaysGG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Spectral:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#141019;
-    --bg-vignette: radial-gradient(1200px 700px at 50% -10%, #241a2c 0%, #141019 60%);
-    --panel:#1d1622;
-    --panel-raised:#241b2c;
-    --line: rgba(201,166,90,0.18);
-    --line-strong: rgba(201,166,90,0.38);
-    --gold:#c9a25a;
-    --gold-bright:#e8c377;
-    --cream:#ece1c8;
-    --muted:#9d8fae;
-    --muted2:#6f6480;
+    --bg:#0c0f1a;
+    --bg-vignette:
+      radial-gradient(1200px 600px at 15% -10%, #221b4a55, transparent 60%),
+      radial-gradient(1000px 500px at 110% 10%, #0d3b3a55, transparent 55%);
+    --panel:#141a2b;
+    --panel-raised:#1b2237;
+    --line: rgba(139,124,246,0.18);
+    --line-strong: rgba(139,124,246,0.38);
+    --gold:#8b7cf6;
+    --gold-bright:#c6bdfb;
+    --cream:#e9ecf7;
+    --muted:#8b93b0;
+    --muted2:#5f6889;
+
+    --teal:#3fd6c4;
+    --teal-glow:#3fd6c455;
+    --amber:#f0b429;
+    --red:#ef5a6f;
+    --green:#4fd67a;
 
     --el-fire:#e2653c;
     --el-water:#3f8fc9;
@@ -50,7 +58,7 @@
     z-index:0;
   }
 
-  ::selection{ background: var(--gold); color:#1a1220; }
+  ::selection{ background: var(--gold); color:#0c0f1a; }
 
   a{color:var(--gold-bright);}
 
@@ -117,7 +125,7 @@
   }
   .bar-fill{
     height:100%;
-    background:linear-gradient(90deg, #8a6a2f, var(--gold), var(--gold-bright));
+    background:linear-gradient(90deg, #4a3f8f, var(--gold), var(--gold-bright));
     width:0%;
     transition:width .4s ease;
   }
@@ -155,7 +163,7 @@
   }
   .maptab:hover{ color:var(--cream); border-color:var(--line-strong); }
   .maptab.active{
-    color:#171019;
+    color:#14172a;
     background:linear-gradient(180deg, var(--gold-bright), var(--gold));
     border-color:var(--gold-bright);
     font-weight:600;
@@ -242,8 +250,8 @@
   }
   .card:hover{ border-color:var(--line-strong); }
   .card.done{
-    background:linear-gradient(180deg, rgba(95,184,148,0.06), var(--panel) 40%);
-    border-color:rgba(95,184,148,0.35);
+    background:linear-gradient(180deg, rgba(79,214,122,0.08), var(--panel) 40%);
+    border-color:rgba(79,214,122,0.4);
   }
 
   .card-top{
@@ -260,7 +268,7 @@
   .card.done .card-name{
     color:var(--muted);
     text-decoration:line-through;
-    text-decoration-color:rgba(95,184,148,0.6);
+    text-decoration-color:rgba(79,214,122,0.6);
   }
 
   .check{
@@ -276,8 +284,8 @@
   }
   .check:hover{ border-color:var(--gold-bright); }
   .card.done .check{
-    background:#5fb894;
-    border-color:#5fb894;
+    background:#4fd67a;
+    border-color:#4fd67a;
     color:#111;
   }
 
@@ -331,7 +339,7 @@
     font-size:11px;
     font-family:'JetBrains Mono', monospace;
     font-weight:600;
-    color:#14101a;
+    color:#14172a;
   }
   .coin-val{
     font-family:'JetBrains Mono', monospace;
@@ -441,19 +449,19 @@
     padding:3px 8px; border-radius:10px;
     margin-bottom:12px; margin-left:8px;
   }
-  .ready-pill.yes{ color:#7fd8a8; background:rgba(95,184,148,0.12); border:1px solid rgba(95,184,148,0.4); }
-  .ready-pill.no{ color:#c98a8a; background:rgba(200,90,90,0.08); border:1px solid rgba(200,90,90,0.28); }
+  .ready-pill.yes{ color:#8fe89f; background:rgba(79,214,122,0.12); border:1px solid rgba(79,214,122,0.4); }
+  .ready-pill.no{ color:#ff9caa; background:rgba(239,90,111,0.08); border:1px solid rgba(239,90,111,0.3); }
 
   .req-compare{ text-align:right; }
   .req-compare .amt{ font-weight:600; }
-  .req-compare .amt.ok{ color:#7fd8a8; }
-  .req-compare .amt.short{ color:#d98888; }
+  .req-compare .amt.ok{ color:#8fe89f; }
+  .req-compare .amt.short{ color:#ff9caa; }
   .req-compare .need{ color:var(--muted); font-weight:400; }
   .req-compare .delta{
     display:block; font-size:10px; margin-top:1px;
   }
-  .req-compare .delta.ok{ color:#5fb894; }
-  .req-compare .delta.short{ color:#c96a6a; }
+  .req-compare .delta.ok{ color:#4fd67a; }
+  .req-compare .delta.short{ color:#ef5a6f; }
 
   .empty-state{
     text-align:center;
@@ -464,23 +472,69 @@
     font-size:30px; margin-bottom:14px; color:var(--muted2);
   }
 
-  footer{
+  .reset-row{
     text-align:center;
-    padding:30px 20px 50px;
+    padding:22px 20px 6px;
     color:var(--muted2);
     font-family:'JetBrains Mono', monospace;
     font-size:11px;
     letter-spacing:.03em;
-    border-top:1px solid var(--line);
   }
-  footer .reset-link{
+  .reset-row .reset-link{
     color:var(--muted);
     text-decoration:underline;
     cursor:pointer;
     background:none; border:none;
     font:inherit;
   }
-  footer .reset-link:hover{ color:var(--gold-bright); }
+  .reset-row .reset-link:hover{ color:var(--gold-bright); }
+
+  /* ---------- Footer ---------- */
+  .site-footer{
+    margin-top:20px; border-top:1px solid var(--line-strong);
+    background:#0a0d17; padding:32px 26px 18px;
+  }
+  .footer-cols{
+    display:grid; grid-template-columns:1.05fr 0.75fr 0.85fr 0.8fr 0.75fr; gap:24px; max-width:1280px; margin:0 auto; align-items:start;
+  }
+  .footer-col h3{
+    margin:0 0 10px; font-family:'Cinzel', serif; font-size:12.5px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--gold-bright); font-weight:700;
+  }
+  .footer-col p{ margin:0 0 8px; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  .footer-col p b{ color:var(--cream); }
+  .footer-links{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; }
+  .footer-links a{
+    display:flex; align-items:center; gap:9px; color:var(--muted); text-decoration:none; font-size:12.5px;
+    font-weight:600; transition:.15s;
+  }
+  .footer-links a:hover{ color:var(--teal); }
+  .footer-links svg{ width:16px; height:16px; flex:none; }
+  .contact-links{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; }
+  .contact-links li{ display:flex; align-items:center; gap:9px; font-size:12.5px; color:var(--muted); }
+  .contact-links svg{ width:16px; height:16px; flex:none; color:var(--muted2); }
+  .contact-links a{ color:var(--muted); text-decoration:none; font-weight:600; word-break:break-all; transition:.15s; }
+  .contact-links a:hover{ color:var(--teal); }
+  .contact-links .cl-val{ color:var(--cream); font-weight:600; word-break:break-all; }
+  .support-block{ margin-top:10px; display:flex; flex-direction:column; gap:6px; }
+  .support-label{ font-size:10.5px; color:var(--muted2); text-transform:uppercase; letter-spacing:1px; font-weight:700; }
+  .footer-col-qr{ display:flex; flex-direction:column; align-items:flex-start; }
+  .qr-link{ display:block; border-radius:12px; overflow:hidden; border:1px solid var(--line-strong); transition:.15s; line-height:0; }
+  .qr-link:hover{ border-color:var(--teal); box-shadow:0 0 0 1px var(--teal-glow); }
+  .qr-image{ width:100%; max-width:150px; height:auto; display:block; }
+  .qr-caption{ margin:8px 0 0; font-size:10.5px; line-height:1.5; color:var(--muted2); }
+  .wallet-addr{
+    display:inline-block; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--cream);
+    background:var(--panel); border:1px solid var(--line-strong); border-radius:7px; padding:7px 9px;
+    word-break:break-all; max-width:220px;
+  }
+  .footer-bottom{
+    max-width:1100px; margin:26px auto 0; padding-top:16px; border-top:1px solid var(--line-strong);
+    font-size:10.5px; color:var(--muted2); text-align:center;
+  }
+  @media (max-width: 900px){
+    .footer-cols{ grid-template-columns:1fr; gap:26px; }
+  }
 
   @media (max-width:640px){
     .controls-inner{ flex-direction:column; align-items:stretch; }
@@ -491,9 +545,137 @@
   @media (prefers-reduced-motion: reduce){
     *{ transition:none !important; scroll-behavior:auto !important; }
   }
+
+  /* ---------- Promo modal ---------- */
+  .promo-overlay{
+    position:fixed; inset:0; z-index:999;
+    background:rgba(5,6,12,0.8);
+    backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    padding:16px;
+  }
+  .promo-modal{
+    width:min(440px, 100%);
+    background:var(--panel);
+    border:1px solid var(--line-strong);
+    border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.65);
+    overflow:hidden;
+  }
+  .promo-head{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:10px;
+    padding:20px 20px 4px;
+  }
+  .promo-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin-bottom:6px;
+  }
+  .promo-title{
+    font-family:'Cinzel', serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--gold-bright);
+    margin:0;
+    line-height:1.3;
+  }
+  .promo-close{
+    flex:0 0 auto;
+    width:26px; height:26px;
+    border-radius:6px;
+    border:1px solid var(--line-strong);
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px;
+    transition:all .15s;
+  }
+  .promo-close:hover{ color:var(--cream); border-color:var(--gold-bright); }
+  .promo-body{ padding:10px 20px 20px; }
+  .promo-body p{
+    margin:0 0 16px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+  .promo-body p b{ color:var(--cream); }
+  .promo-link-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Cinzel', serif;
+    font-weight:600;
+    font-size:13px;
+    color:#14172a;
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    border:1px solid var(--gold-bright);
+    border-radius:6px;
+    padding:10px 16px;
+    text-decoration:none;
+    transition:transform .15s, box-shadow .15s;
+    width:100%;
+    justify-content:center;
+    box-sizing:border-box;
+  }
+  .promo-link-btn:hover{ transform:translateY(-1px); box-shadow:0 6px 18px rgba(139,124,246,0.35); }
+  .promo-donate{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    display:flex; align-items:center; gap:14px;
+  }
+  .promo-donate-text{ flex:1; min-width:0; }
+  .promo-donate-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted2);
+    margin-bottom:4px;
+  }
+  .promo-donate-text p{ margin:0; font-size:12px; line-height:1.5; color:var(--muted); }
+  .promo-qr-link{
+    flex:0 0 auto;
+    display:block;
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--line-strong);
+    transition:.15s;
+    line-height:0;
+  }
+  .promo-qr-link:hover{ border-color:var(--teal); box-shadow:0 0 0 1px var(--teal-glow); }
+  .promo-qr-link img{ width:74px; height:74px; display:block; object-fit:cover; }
 </style>
 </head>
 <body>
+
+<div class="promo-overlay" id="promoOverlay">
+  <div class="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promoTitle">
+    <div class="promo-head">
+      <div>
+        <div class="promo-eyebrow">New from @CharlesPlaysGG</div>
+        <h3 class="promo-title" id="promoTitle">RONW Guild Management Tracker</h3>
+      </div>
+      <button class="promo-close" id="promoCloseBtn" aria-label="Close">✕</button>
+    </div>
+    <div class="promo-body">
+      <p>I built another free tool for <b>Ragnarok: The New World</b> — a drag-and-drop lineup builder for Guild League, Polarity Zone, and loot auctions. Check it out if it's useful to your guild.</p>
+      <a class="promo-link-btn" href="https://cajancharles.github.io/roworldplanner/" target="_blank" rel="noopener">Open RONW Guild Management Tracker ↗</a>
+      <div class="promo-donate">
+        <div class="promo-donate-text">
+          <div class="promo-donate-label">Support the project</div>
+          <p>If these tools save you some headaches, feel free to donate via GCash — every bit helps keep them free.</p>
+        </div>
+        <a href="gcash-qr.jpg" target="_blank" rel="noopener" class="promo-qr-link" title="Click to view full size for scanning">
+          <img src="gcash-qr.jpg" alt="GCash QR code for donations">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <header class="hero">
   <div class="eyebrow">Return to <span>New World</span> · Crafting Log</div>
@@ -557,10 +739,79 @@
   <div id="content"></div>
 </main>
 
-<footer>
-  RTNW Headwear Codex — tracked locally in your browser. &nbsp;·&nbsp;
+<div class="reset-row">
+  RONW Headwear Tracker — tracked locally in your browser. &nbsp;·&nbsp;
   <button class="reset-link" id="resetBtn">reset crafted progress</button> &nbsp;·&nbsp;
   <button class="reset-link" id="resetInvBtn">reset stockpile</button>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-cols">
+    <div class="footer-col">
+      <h3>Headwear Codex</h3>
+      <p>A headwear crafting tracker created by <b>@CharlesPlaysGG</b> for <b>Ragnarok: The New World</b>. Built to keep track of blueprints, dolls, element cores, and coin needed to craft every hat, mask, and trinket across all six towns.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Follow</h3>
+      <ul class="footer-links">
+        <li><a href="https://www.youtube.com/@CharlesPlaysGG" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.5v-7l6.3 3.5-6.3 3.5Z"/></svg>
+          YouTube</a></li>
+        <li><a href="http://tiktok.com/@charlesplaysgg" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8a4.5 4.5 0 0 1-3.4-4.1h-3.2v14.4a2.6 2.6 0 1 1-1.9-2.5V10.3a5.9 5.9 0 1 0 5.1 5.9V9.1a7.7 7.7 0 0 0 4.5 1.4V7.3a4.5 4.5 0 0 1-1.1-1.5Z"/></svg>
+          TikTok</a></li>
+        <li><a href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.6 0 0 4.3v15.4h6.4V24l6.4-4.3h4.8L24 13.4V0H11.6Zm10.2 12.4-3.8 3.8h-4.8l-3.8 3.8v-3.8H6.4V2.2h15.4v10.2Z"/><path d="M17.2 5.7h2.2v6.4h-2.2zM12.4 5.7h2.2v6.4h-2.2z"/></svg>
+          Twitch</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Contact Us</h3>
+      <ul class="contact-links">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+          <a href="mailto:charlesenrickcajan@gmail.com">charlesenrickcajan@gmail.com</a>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 5.4A17.6 17.6 0 0 0 15.9 4a.1.1 0 0 0-.1.05c-.2.35-.4.8-.55 1.15a16.4 16.4 0 0 0-4.9 0A9 9 0 0 0 9.8 4 .1.1 0 0 0 9.7 4a17.5 17.5 0 0 0-4.4 1.4.1.1 0 0 0-.05.04C2.4 9.2 1.7 12.9 2 16.5a.1.1 0 0 0 .04.08 17.7 17.7 0 0 0 5.3 2.7.1.1 0 0 0 .12-.04c.4-.56.77-1.15 1.1-1.77a.1.1 0 0 0-.06-.15 11.6 11.6 0 0 1-1.67-.8.1.1 0 0 1 0-.17c.11-.09.22-.17.33-.26a.1.1 0 0 1 .1-.01c3.5 1.6 7.3 1.6 10.76 0a.1.1 0 0 1 .1.01c.11.09.22.18.33.27a.1.1 0 0 1 0 .17c-.53.31-1.09.58-1.67.8a.1.1 0 0 0-.06.15c.34.62.72 1.2 1.1 1.76a.1.1 0 0 0 .12.04A17.6 17.6 0 0 0 22 16.6a.1.1 0 0 0 .04-.08c.35-4.15-.6-7.83-2.7-11.06a.08.08 0 0 0-.04-.05ZM8.68 14.3c-1.05 0-1.92-.97-1.92-2.15 0-1.19.85-2.15 1.92-2.15 1.08 0 1.94.98 1.92 2.15 0 1.18-.85 2.15-1.92 2.15Zm6.65 0c-1.05 0-1.92-.97-1.92-2.15 0-1.19.85-2.15 1.92-2.15 1.08 0 1.94.98 1.92 2.15 0 1.18-.84 2.15-1.92 2.15Z"/></svg>
+          <span class="cl-val">akariverse666</span>
+        </li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Support the Project</h3>
+      <p>If this tool saves you some grinding headaches, consider chipping in — it helps keep it maintained and free for everyone.</p>
+      <div class="support-block">
+        <span class="support-label">BTC</span>
+        <code class="wallet-addr">15zZzbk9t4Gf9xsaNJ7FqoomKmgjJyKWvE</code>
+      </div>
+      <div class="support-block">
+        <span class="support-label">BNB (BEP20)</span>
+        <code class="wallet-addr">0xceacfec618768e01a1dd68fe407f69f1b87162b3</code>
+      </div>
+      <div class="support-block">
+        <span class="support-label">Solana</span>
+        <code class="wallet-addr">o6TZyGN23P9ju2i9EuENT7XNdM5na2pmMtUq4w5ukco</code>
+      </div>
+      <div class="support-block">
+        <span class="support-label">USDT (TRON)</span>
+        <code class="wallet-addr">TYmZd9LntLQXs2GhK9D49Y5AehUPLadJme</code>
+      </div>
+    </div>
+    <div class="footer-col footer-col-qr">
+      <h3>Scan to Donate</h3>
+      <a href="gcash-qr.jpg" target="_blank" rel="noopener" class="qr-link" title="Click to view full size for scanning">
+        <img src="gcash-qr.jpg" alt="GCash QR code for donations" class="qr-image">
+      </a>
+      <p class="qr-caption">Tap/click the QR to open it full-size if it won't scan from here.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div style="text-align:center; margin-bottom:12px;">
+      <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fcajancharles.github.io%2FRONWHeadwearTracker%2F&label=Visitors&icon=github&color=%23198754&message=&style=flat&tz=Asia%2FManila" alt="Visitor count">
+    </div>
+    Not affiliated with Gravity Co., Ltd. or Ragnarok: The New World. Fan-made tool.
+  </div>
 </footer>
 
 <script>
@@ -873,6 +1124,18 @@ document.getElementById('resetInvBtn').addEventListener('click', () => {
 
 buildStockpilePanel();
 render();
+
+// ---------- Promo modal: shown on every page load ----------
+const promoOverlay = document.getElementById('promoOverlay');
+const promoCloseBtn = document.getElementById('promoCloseBtn');
+function closePromo(){ promoOverlay.style.display = 'none'; }
+promoCloseBtn.addEventListener('click', closePromo);
+promoOverlay.addEventListener('click', (e) => {
+  if(e.target === promoOverlay) closePromo();
+});
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') closePromo();
+});
 </script>
 </body>
 </html>
