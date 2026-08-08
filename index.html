@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RTNW Headwear Codex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Spectral:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#141019;
+    --bg-vignette: radial-gradient(1200px 700px at 50% -10%, #241a2c 0%, #141019 60%);
+    --panel:#1d1622;
+    --panel-raised:#241b2c;
+    --line: rgba(201,166,90,0.18);
+    --line-strong: rgba(201,166,90,0.38);
+    --gold:#c9a25a;
+    --gold-bright:#e8c377;
+    --cream:#ece1c8;
+    --muted:#9d8fae;
+    --muted2:#6f6480;
+
+    --el-fire:#e2653c;
+    --el-water:#3f8fc9;
+    --el-wind:#5fb894;
+    --el-earth:#a3763f;
+    --el-poison:#9a5fc9;
+    --el-ghost:#7d84d6;
+    --el-shadow:#6b4f96;
+    --el-neutral:#9c9aa8;
+    --el-undead:#6f9a52;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg-vignette), var(--bg);
+    background-attachment:fixed;
+    color:var(--cream);
+    font-family:'Spectral', serif;
+    min-height:100vh;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  ::selection{ background: var(--gold); color:#1a1220; }
+
+  a{color:var(--gold-bright);}
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    position:relative;
+    padding:64px 24px 40px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+    width:min(900px, 90%); height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity:.6;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:.28em;
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .eyebrow span{color:var(--gold-bright);}
+  h1.title{
+    font-family:'Cinzel', serif;
+    font-weight:700;
+    font-size:clamp(32px, 5vw, 56px);
+    margin:0 0 12px;
+    color:var(--gold-bright);
+    text-shadow:0 0 30px rgba(232,195,119,0.25);
+    letter-spacing:.02em;
+  }
+  p.subtitle{
+    max-width:560px;
+    margin:0 auto;
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.6;
+  }
+
+  .overall-wrap{
+    max-width:520px;
+    margin:34px auto 0;
+    padding:0 12px;
+  }
+  .overall-label{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:8px;
+    letter-spacing:.04em;
+  }
+  .overall-label b{ color:var(--gold-bright); font-weight:600; }
+  .bar-track{
+    height:8px; border-radius:2px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid var(--line);
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    background:linear-gradient(90deg, #8a6a2f, var(--gold), var(--gold-bright));
+    width:0%;
+    transition:width .4s ease;
+  }
+
+  /* ---------- Controls ---------- */
+  .controls{
+    position:sticky; top:0; z-index:5;
+    backdrop-filter: blur(10px);
+    background:rgba(20,16,25,0.86);
+    border-bottom:1px solid var(--line);
+    padding:16px 20px;
+  }
+  .controls-inner{
+    max-width:1180px; margin:0 auto;
+    display:flex; flex-wrap:wrap; gap:14px; align-items:center;
+  }
+
+  .maptabs{
+    display:flex; flex-wrap:wrap; gap:8px;
+    flex:1 1 auto;
+  }
+  .maptab{
+    font-family:'Cinzel', serif;
+    font-size:12.5px;
+    letter-spacing:.03em;
+    color:var(--muted);
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:8px 14px;
+    border-radius:3px;
+    cursor:pointer;
+    display:flex; align-items:center; gap:8px;
+    transition:border-color .15s, color .15s, background .15s;
+    white-space:nowrap;
+  }
+  .maptab:hover{ color:var(--cream); border-color:var(--line-strong); }
+  .maptab.active{
+    color:#171019;
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    border-color:var(--gold-bright);
+    font-weight:600;
+  }
+  .maptab .count{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    opacity:.75;
+  }
+
+  .search-wrap{
+    display:flex; align-items:center; gap:10px;
+    margin-left:auto;
+  }
+  input[type="text"]{
+    font-family:'Spectral', serif;
+    font-size:14px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--cream);
+    padding:9px 12px;
+    border-radius:3px;
+    width:200px;
+    outline:none;
+    transition:border-color .15s;
+  }
+  input[type="text"]:focus{ border-color:var(--gold); }
+  input[type="text"]::placeholder{ color:var(--muted2); }
+
+  .toggle-chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    border-radius:3px;
+    cursor:pointer;
+    display:flex; align-items:center; gap:7px;
+    user-select:none;
+    white-space:nowrap;
+  }
+  .toggle-chip input{ accent-color:var(--gold); }
+  .toggle-chip.on{ color:var(--gold-bright); border-color:var(--line-strong); }
+
+  /* ---------- Grid ---------- */
+  main{
+    max-width:1180px;
+    margin:0 auto;
+    padding:36px 20px 90px;
+    position:relative; z-index:1;
+  }
+  .section-title{
+    font-family:'Cinzel', serif;
+    font-size:20px;
+    color:var(--gold-bright);
+    margin:34px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+    display:flex; align-items:baseline; gap:12px;
+  }
+  .section-title .sub{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--muted);
+    font-weight:400;
+  }
+  .section-title:first-child{ margin-top:0; }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(268px, 1fr));
+    gap:14px;
+  }
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px 16px 14px;
+    position:relative;
+    transition:border-color .18s, transform .18s;
+  }
+  .card:hover{ border-color:var(--line-strong); }
+  .card.done{
+    background:linear-gradient(180deg, rgba(95,184,148,0.06), var(--panel) 40%);
+    border-color:rgba(95,184,148,0.35);
+  }
+
+  .card-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:10px; margin-bottom:12px;
+  }
+  .card-name{
+    font-family:'Cinzel', serif;
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--cream);
+    line-height:1.3;
+  }
+  .card.done .card-name{
+    color:var(--muted);
+    text-decoration:line-through;
+    text-decoration-color:rgba(95,184,148,0.6);
+  }
+
+  .check{
+    flex:0 0 auto;
+    width:22px; height:22px;
+    border-radius:4px;
+    border:1.5px solid var(--line-strong);
+    background:transparent;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    color:transparent;
+    transition:all .15s;
+  }
+  .check:hover{ border-color:var(--gold-bright); }
+  .card.done .check{
+    background:#5fb894;
+    border-color:#5fb894;
+    color:#111;
+  }
+
+  .bp-tag{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.03em;
+    color:var(--gold-bright);
+    background:rgba(201,166,90,0.1);
+    border:1px solid rgba(201,166,90,0.35);
+    padding:4px 8px;
+    border-radius:3px;
+    margin-bottom:12px;
+  }
+  .bp-tag::before{ content:"◆"; font-size:8px; }
+  .no-bp{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--muted2);
+    margin-bottom:12px;
+  }
+
+  .reqs{
+    display:flex; flex-direction:column; gap:7px;
+    font-size:13px;
+  }
+  .req-row{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:10px;
+    padding:6px 9px;
+    background:rgba(255,255,255,0.02);
+    border-radius:3px;
+  }
+  .req-label{
+    color:var(--muted);
+    font-size:11.5px;
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:.02em;
+  }
+  .req-val{
+    color:var(--cream);
+    font-weight:500;
+    text-align:right;
+  }
+  .badge{
+    display:inline-block;
+    padding:2px 8px;
+    border-radius:10px;
+    font-size:11px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:600;
+    color:#14101a;
+  }
+  .coin-val{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--gold-bright);
+    font-weight:600;
+  }
+
+  /* ---------- Stockpile panel ---------- */
+  .stockpile{
+    max-width:1180px; margin:0 auto;
+    padding:0 20px;
+  }
+  .stockpile-panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    margin-top:20px;
+    overflow:hidden;
+    max-height:0;
+    transition:max-height .35s ease;
+  }
+  .stockpile-panel.open{ max-height:2400px; }
+  .stockpile-inner{ padding:22px 22px 8px; }
+  .stockpile-head{
+    display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    margin-bottom:6px;
+  }
+  .stockpile-title{
+    font-family:'Cinzel', serif; font-size:15px; color:var(--gold-bright); letter-spacing:.02em;
+  }
+  .stockpile-hint{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted);
+  }
+  .stockpile-group{ margin:18px 0; }
+  .stockpile-group-label{
+    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.08em;
+    color:var(--muted); text-transform:uppercase; margin-bottom:10px;
+  }
+  .stockpile-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+    gap:8px;
+  }
+  .stock-field{
+    display:flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:6px 8px;
+  }
+  .stock-field .dot{
+    width:8px; height:8px; border-radius:50%; flex:0 0 auto;
+  }
+  .stock-field label{
+    flex:1 1 auto;
+    font-size:12.5px;
+    color:var(--muted);
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .stock-field input{
+    width:74px;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line-strong);
+    color:var(--cream);
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    text-align:right;
+    padding:2px 0;
+    outline:none;
+  }
+  .stock-field input:focus{ border-bottom-color:var(--gold-bright); }
+  .stock-field.coin{
+    max-width:260px;
+  }
+  .stock-field.coin input{ width:120px; font-size:15px; }
+  .stock-field.coin label{ font-size:13px; color:var(--gold-bright); }
+
+  .stockpile-toggle{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.02em;
+    color:var(--muted);
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:8px 12px;
+    border-radius:3px;
+    cursor:pointer;
+    display:flex; align-items:center; gap:7px;
+    white-space:nowrap;
+  }
+  .stockpile-toggle.open{ color:var(--gold-bright); border-color:var(--line-strong); }
+  .stockpile-toggle .arrow{ transition:transform .2s; display:inline-block; }
+  .stockpile-toggle.open .arrow{ transform:rotate(90deg); }
+
+  .ready-stat{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted);
+    margin-top:6px;
+  }
+  .ready-stat b{ color:var(--gold-bright); }
+
+  /* ---------- Card readiness ---------- */
+  .ready-pill{
+    display:inline-flex; align-items:center; gap:5px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px; letter-spacing:.05em; text-transform:uppercase;
+    padding:3px 8px; border-radius:10px;
+    margin-bottom:12px; margin-left:8px;
+  }
+  .ready-pill.yes{ color:#7fd8a8; background:rgba(95,184,148,0.12); border:1px solid rgba(95,184,148,0.4); }
+  .ready-pill.no{ color:#c98a8a; background:rgba(200,90,90,0.08); border:1px solid rgba(200,90,90,0.28); }
+
+  .req-compare{ text-align:right; }
+  .req-compare .amt{ font-weight:600; }
+  .req-compare .amt.ok{ color:#7fd8a8; }
+  .req-compare .amt.short{ color:#d98888; }
+  .req-compare .need{ color:var(--muted); font-weight:400; }
+  .req-compare .delta{
+    display:block; font-size:10px; margin-top:1px;
+  }
+  .req-compare .delta.ok{ color:#5fb894; }
+  .req-compare .delta.short{ color:#c96a6a; }
+
+  .empty-state{
+    text-align:center;
+    padding:80px 20px;
+    color:var(--muted);
+  }
+  .empty-state .glyph{
+    font-size:30px; margin-bottom:14px; color:var(--muted2);
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 20px 50px;
+    color:var(--muted2);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.03em;
+    border-top:1px solid var(--line);
+  }
+  footer .reset-link{
+    color:var(--muted);
+    text-decoration:underline;
+    cursor:pointer;
+    background:none; border:none;
+    font:inherit;
+  }
+  footer .reset-link:hover{ color:var(--gold-bright); }
+
+  @media (max-width:640px){
+    .controls-inner{ flex-direction:column; align-items:stretch; }
+    .search-wrap{ margin-left:0; }
+    input[type="text"]{ width:100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Return to <span>New World</span> · Crafting Log</div>
+  <h1 class="title">Headwear Codex</h1>
+  <p class="subtitle">Every hat, mask and trinket across six towns — what blueprint it needs, which doll to farm, which element core to bind, and the coin to pay the crafter.</p>
+  <div class="overall-wrap">
+    <div class="overall-label"><span>Codex progress</span><b id="overallCount">0 / 0 crafted</b></div>
+    <div class="bar-track"><div class="bar-fill" id="overallBar"></div></div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="controls-inner">
+    <div class="maptabs" id="mapTabs"></div>
+    <div class="search-wrap">
+      <button class="stockpile-toggle" id="stockpileToggle"><span class="arrow">▸</span> My Stockpile</button>
+      <label class="toggle-chip" id="readyChip">
+        <input type="checkbox" id="readyOnly"> Craftable now
+      </label>
+      <label class="toggle-chip" id="bpChip">
+        <input type="checkbox" id="bpOnly"> Blueprint only
+      </label>
+      <input type="text" id="search" placeholder="Search headwear or doll…">
+    </div>
+  </div>
+</div>
+
+<div class="stockpile">
+  <div class="stockpile-panel" id="stockpilePanel">
+    <div class="stockpile-inner">
+      <div class="stockpile-head">
+        <div class="stockpile-title">My Stockpile</div>
+        <div class="stockpile-hint">Enter what you're holding — every card below updates automatically.</div>
+      </div>
+
+      <div class="stockpile-group">
+        <div class="stockpile-group-label">Advance Coin</div>
+        <div class="stock-field coin">
+          <span class="dot" style="background:var(--gold-bright)"></span>
+          <label for="coin-input">Adv. Coin</label>
+          <input type="number" min="0" step="1" id="coin-input" placeholder="0">
+        </div>
+      </div>
+
+      <div class="stockpile-group">
+        <div class="stockpile-group-label">Element Cores</div>
+        <div class="stockpile-grid" id="coreInputs"></div>
+      </div>
+
+      <div class="stockpile-group">
+        <div class="stockpile-group-label">Dolls</div>
+        <div class="stockpile-grid" id="dollInputs"></div>
+      </div>
+
+      <div class="ready-stat" id="readyStat"></div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div id="content"></div>
+</main>
+
+<footer>
+  RTNW Headwear Codex — tracked locally in your browser. &nbsp;·&nbsp;
+  <button class="reset-link" id="resetBtn">reset crafted progress</button> &nbsp;·&nbsp;
+  <button class="reset-link" id="resetInvBtn">reset stockpile</button>
+</footer>
+
+<script>
+const DATA = [{"id": 1, "map": "Prontera", "headwear": "Prontera Hat", "blueprint": null, "dollQty": "200", "dollName": "Muka", "coreQty": "100", "coreName": "Wind", "coin": "100K Adv Coin"}, {"id": 2, "map": "Prontera", "headwear": "Poring Hat", "blueprint": null, "dollQty": "200", "dollName": "Poring", "coreQty": "100", "coreName": "Ghost", "coin": "100K Adv. Coin"}, {"id": 3, "map": "Prontera", "headwear": "Goggles", "blueprint": null, "dollQty": "600", "dollName": "Yoyo", "coreQty": "300", "coreName": "Wind", "coin": "300K Adv. Coin"}, {"id": 4, "map": "Prontera", "headwear": "Western Grace", "blueprint": null, "dollQty": "600", "dollName": "Bigfoot", "coreQty": "300", "coreName": "Ghost", "coin": "300K Adv. Coin"}, {"id": 5, "map": "Prontera", "headwear": "Santa Hat", "blueprint": "Santa Hat Blueprint", "dollQty": "1.3K", "dollName": "Poring", "coreQty": "750", "coreName": "Poison", "coin": "1M Adv. Coin"}, {"id": 6, "map": "Prontera", "headwear": "Poring Backpack", "blueprint": "Poring Backpack Blueprint", "dollQty": "1.3K", "dollName": "Poring", "coreQty": "750", "coreName": "Water", "coin": "1M Adv. Coin"}, {"id": 7, "map": "Prontera", "headwear": "Raymongeddon Tail", "blueprint": "Raymongeddon Tail Blueprint", "dollQty": "4.1K", "dollName": "Mummy", "coreQty": "2.1K", "coreName": "Earth", "coin": "5M Adv. Coin"}, {"id": 8, "map": "Morroc", "headwear": "Egg Shell", "blueprint": null, "dollQty": "200", "dollName": "Picky", "coreQty": "100", "coreName": "Shadow", "coin": "100K Adv Coin"}, {"id": 9, "map": "Morroc", "headwear": "Flu Mask", "blueprint": null, "dollQty": "200", "dollName": "Yoyo", "coreQty": "100", "coreName": "Wind", "coin": "100K Adv. Coin"}, {"id": 10, "map": "Morroc", "headwear": "Clip", "blueprint": null, "dollQty": "600", "dollName": "Chonchon", "coreQty": "300", "coreName": "Poison", "coin": "300K Adv. Coin"}, {"id": 11, "map": "Morroc", "headwear": "Sunflower", "blueprint": null, "dollQty": "600", "dollName": "Spore", "coreQty": "300", "coreName": "Shadow", "coin": "300K Adv. Coin"}, {"id": 12, "map": "Morroc", "headwear": "Mask", "blueprint": "Mask Blueprint", "dollQty": "1.3K", "dollName": "Sidewinder", "coreQty": "750", "coreName": "Water", "coin": "1M Adv. Coin"}, {"id": 13, "map": "Morroc", "headwear": "Gold-Framed Glasses", "blueprint": "Gold Frame Glasses Blueprint", "dollQty": "1.3K", "dollName": "Mantis", "coreQty": "750", "coreName": "Wind", "coin": "1M Adv. Coin"}, {"id": 14, "map": "Morroc", "headwear": "Deviruchi Balloon", "blueprint": "Deviruchi Balloon Blueprint", "dollQty": "4.1K", "dollName": "Bahoment Jr.", "coreQty": "2.1K", "coreName": "Ghost", "coin": "5M Adv. Coin"}, {"id": 15, "map": "Alberta", "headwear": "Glasses", "blueprint": null, "dollQty": "200", "dollName": "Goblin", "coreQty": "100", "coreName": "Undead", "coin": "100K Adv Coin"}, {"id": 16, "map": "Alberta", "headwear": "Giant Band Aid", "blueprint": null, "dollQty": "200", "dollName": "Zombie", "coreQty": "100", "coreName": "Earth", "coin": "100K Adv. Coin"}, {"id": 17, "map": "Alberta", "headwear": "Sunglasses", "blueprint": null, "dollQty": "600", "dollName": "Smokie", "coreQty": "300", "coreName": "Shadow", "coin": "300K Adv. Coin"}, {"id": 18, "map": "Alberta", "headwear": "Heart Hairpin", "blueprint": null, "dollQty": "600", "dollName": "Marina", "coreQty": "300", "coreName": "Undead", "coin": "300K Adv. Coin"}, {"id": 19, "map": "Alberta", "headwear": "Angel Spirit", "blueprint": "Angel Spirit Blueprint", "dollQty": "1.3K", "dollName": "Metaller", "coreQty": "750", "coreName": "Neutral", "coin": "1M Adv. Coin"}, {"id": 20, "map": "Alberta", "headwear": "Smirking Mask", "blueprint": "Smirking Mask Blueprint", "dollQty": "1.3K", "dollName": "Goblin", "coreQty": "750", "coreName": "Undead", "coin": "1M Adv. Coin"}, {"id": 21, "map": "Alberta", "headwear": "Easter Bunny", "blueprint": "Egg Bunny Blueprint", "dollQty": "4.1K", "dollName": "Bigfoot", "coreQty": "2.1K", "coreName": "Shadow", "coin": "5M Adv. Coin"}, {"id": 22, "map": "Payon", "headwear": "Bomb Wick", "blueprint": null, "dollQty": "200", "dollName": "Whisper", "coreQty": "100", "coreName": "Water", "coin": "100K Adv Coin"}, {"id": 23, "map": "Payon", "headwear": "Nurse Cap", "blueprint": null, "dollQty": "200", "dollName": "Familliar", "coreQty": "100", "coreName": "Poison", "coin": "100K Adv. Coin"}, {"id": 24, "map": "Payon", "headwear": "White Blinker", "blueprint": null, "dollQty": "200", "dollName": "Whisper", "coreQty": "100", "coreName": "Water", "coin": "100K Adv. Coin"}, {"id": 25, "map": "Payon", "headwear": "Bongun Hat", "blueprint": null, "dollQty": "600", "dollName": "Zombie", "coreQty": "300", "coreName": "Earth", "coin": "300K Adv. Coin"}, {"id": 26, "map": "Payon", "headwear": "Ear Muffs", "blueprint": null, "dollQty": "600", "dollName": "Baphoment Jr.", "coreQty": "300", "coreName": "Undead", "coin": "300K Adv. Coin"}, {"id": 27, "map": "Payon", "headwear": "Romantic Leaf", "blueprint": null, "dollQty": "600", "dollName": "Soldier Skeleton", "coreQty": "300", "coreName": "Ghost", "coin": "300K Adv. Coin"}, {"id": 28, "map": "Payon", "headwear": "Elven Ears", "blueprint": "Elven Ears Blueprint", "dollQty": "1.3K", "dollName": "Familiar", "coreQty": "750", "coreName": "Fire", "coin": "1M Adv. Coin"}, {"id": 29, "map": "Payon", "headwear": "Deviruchi Tail", "blueprint": "Deviruchi Tail Blueprint", "dollQty": "4.1K", "dollName": "Whisper", "coreQty": "2.1K", "coreName": "Poison", "coin": "5M Adv. Coin"}, {"id": 30, "map": "Geffen", "headwear": "Green Feeler", "blueprint": null, "dollQty": "200", "dollName": "Metaller", "coreQty": "100", "coreName": "Earth", "coin": "100K Adv Coin"}, {"id": 31, "map": "Geffen", "headwear": "Tayelin Glasses", "blueprint": null, "dollQty": "200", "dollName": "Muka", "coreQty": "100", "coreName": "Fire", "coin": "100K Adv. Coin"}, {"id": 32, "map": "Geffen", "headwear": "Beret", "blueprint": null, "dollQty": "600", "dollName": "Peco Peco", "coreQty": "300", "coreName": "Water", "coin": "300K Adv. Coin"}, {"id": 33, "map": "Geffen", "headwear": "Turban", "blueprint": null, "dollQty": "600", "dollName": "Orc Baby", "coreQty": "300", "coreName": "Fire", "coin": "300K Adv. Coin"}, {"id": 34, "map": "Geffen", "headwear": "Cat Ear Beret", "blueprint": "Cat Hat Beret Blueprint", "dollQty": "1.3K", "dollName": "Smokie", "coreQty": "750", "coreName": "Shadow", "coin": "1M Adv. Coin"}, {"id": 35, "map": "Geffen", "headwear": "Scarlet Rose", "blueprint": "Scarlet Rose Blueprint", "dollQty": "1.3K", "dollName": "Familiar", "coreQty": "750", "coreName": "Neutral", "coin": "1M Adv. Coin"}, {"id": 36, "map": "Geffen", "headwear": "Deviruchi Wings", "blueprint": "Deviruchi Wings Blueprint", "dollQty": "4.1K", "dollName": "Familiar", "coreQty": "2.1K", "coreName": "Wind", "coin": "5M Adv. Coin"}, {"id": 37, "map": "Izlude", "headwear": "Hair Band", "blueprint": null, "dollQty": "200", "dollName": "Lunatic", "coreQty": "100", "coreName": "Neutral", "coin": "100K Adv Coin"}, {"id": 38, "map": "Izlude", "headwear": "Kafra Band", "blueprint": null, "dollQty": "200", "dollName": "Savage Babe", "coreQty": "100", "coreName": "Fire", "coin": "100K Adv. Coin"}, {"id": 39, "map": "Izlude", "headwear": "Cat Paw Blinker", "blueprint": null, "dollQty": "200", "dollName": "Smokie", "coreQty": "100", "coreName": "Neutral", "coin": "100K Adv. Coin"}, {"id": 40, "map": "Izlude", "headwear": "Spiky Band", "blueprint": null, "dollQty": "600", "dollName": "Whisper", "coreQty": "300", "coreName": "Neutral", "coin": "300K Adv. Coin"}, {"id": 41, "map": "Izlude", "headwear": "Circlet", "blueprint": null, "dollQty": "600", "dollName": "Marina Jr.", "coreQty": "300", "coreName": "Wind", "coin": "300K Adv. Coin"}, {"id": 42, "map": "Izlude", "headwear": "Masquerade", "blueprint": null, "dollQty": "600", "dollName": "Chonchon", "coreQty": "300", "coreName": "Poison", "coin": "300K Adv. Coin"}, {"id": 43, "map": "Izlude", "headwear": "Marionette", "blueprint": "Marionette Blueprint", "dollQty": "1.3K", "dollName": "Mummy", "coreQty": "750", "coreName": "Ghost", "coin": "1M Adv. Coin"}, {"id": 44, "map": "Izlude", "headwear": "Little Angel Wings", "blueprint": "Little Angel Wings Blueprint", "dollQty": "4.1K", "dollName": "Nine Tail", "coreQty": "2.1K", "coreName": "Fire", "coin": "5M Adv. Coin"}];
+
+const MAPS = ["Prontera","Morroc","Alberta","Payon","Geffen","Izlude"];
+const ELEMENT_COLORS = {
+  Fire:"var(--el-fire)", Water:"var(--el-water)", Wind:"var(--el-wind)",
+  Earth:"var(--el-earth)", Poison:"var(--el-poison)", Ghost:"var(--el-ghost)",
+  Shadow:"var(--el-shadow)", Neutral:"var(--el-neutral)", Undead:"var(--el-undead)"
+};
+
+// A couple of doll names are spelled two ways across the source sheet
+// (Bahoment Jr. / Baphoment Jr., Familiar / Familliar) — treat them as one
+// doll so you only have to enter a count once.
+const DOLL_ALIASES = {
+  "Bahoment Jr.": "Baphomet Jr.",
+  "Baphoment Jr.": "Baphomet Jr.",
+  "Familliar": "Familiar"
+};
+function canonDoll(name){ return DOLL_ALIASES[name] || name; }
+
+function parseAmount(raw){
+  if(raw === null || raw === undefined) return 0;
+  const m = String(raw).match(/([\d,]+(?:\.\d+)?)\s*([KMB])?/i);
+  if(!m) return 0;
+  let num = parseFloat(m[1].replace(/,/g,''));
+  const suf = (m[2] || '').toUpperCase();
+  if(suf === 'K') num *= 1000;
+  if(suf === 'M') num *= 1000000;
+  if(suf === 'B') num *= 1000000000;
+  return Math.round(num);
+}
+
+function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
+
+const DOLLS = Array.from(new Set(DATA.map(d => canonDoll(d.dollName)))).sort();
+const CORES = Object.keys(ELEMENT_COLORS).filter(k => DATA.some(d => d.coreName === k));
+
+const STORAGE_KEY = "rtnw-headwear-progress";
+const INV_KEY = "rtnw-headwear-inventory";
+const PANEL_KEY = "rtnw-headwear-panel-open";
+
+let crafted = {};
+try{ crafted = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ crafted = {}; }
+
+let inventory = { coin: 0, dolls: {}, cores: {} };
+try{
+  const stored = JSON.parse(localStorage.getItem(INV_KEY));
+  if(stored) inventory = Object.assign({ coin:0, dolls:{}, cores:{} }, stored);
+}catch(e){}
+
+let state = { map: "All", search: "", bpOnly: false, readyOnly: false };
+
+function saveProgress(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(crafted));
+}
+function saveInventory(){
+  localStorage.setItem(INV_KEY, JSON.stringify(inventory));
+}
+
+function itemStatus(item){
+  const dollKey = canonDoll(item.dollName);
+  const dollNeed = parseAmount(item.dollQty);
+  const dollHave = Number(inventory.dolls[dollKey]) || 0;
+
+  const coreNeed = parseAmount(item.coreQty);
+  const coreHave = Number(inventory.cores[item.coreName]) || 0;
+
+  const coinNeed = parseAmount(item.coin);
+  const coinHave = Number(inventory.coin) || 0;
+
+  return {
+    dollNeed, dollHave, dollOk: dollHave >= dollNeed,
+    coreNeed, coreHave, coreOk: coreHave >= coreNeed,
+    coinNeed, coinHave, coinOk: coinHave >= coinNeed,
+    ready: dollHave >= dollNeed && coreHave >= coreNeed && coinHave >= coinNeed
+  };
+}
+
+function escapeHtml(s){
+  return (s || "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function compareBlock(label, needLabel, needNum, haveNum, ok, extra){
+  const delta = haveNum - needNum;
+  const deltaText = ok
+    ? (delta > 0 ? `+${fmt(delta)} spare` : 'exact')
+    : `need ${fmt(Math.abs(delta))} more`;
+  return `
+    <div class="req-row">
+      <span class="req-label">${label}</span>
+      <div class="req-compare">
+        ${extra || ''}<span class="amt ${ok?'ok':'short'}">${fmt(haveNum)}</span><span class="need"> / ${fmt(needNum)}</span>
+        <span class="delta ${ok?'ok':'short'}">${deltaText}</span>
+      </div>
+    </div>
+  `;
+}
+
+function itemCard(item){
+  const isDone = !!crafted[item.id];
+  const elColor = ELEMENT_COLORS[item.coreName] || "var(--el-neutral)";
+  const st = itemStatus(item);
+
+  return `
+    <div class="card ${isDone ? 'done':''}" data-id="${item.id}">
+      <div class="card-top">
+        <div class="card-name">${escapeHtml(item.headwear)}</div>
+        <button class="check" data-id="${item.id}" aria-label="Toggle crafted">${isDone ? '✓' : ''}</button>
+      </div>
+      <div>
+        ${item.blueprint
+          ? `<div class="bp-tag" style="margin-bottom:0; display:inline-flex;">${escapeHtml(item.blueprint)}</div>`
+          : `<span class="no-bp" style="margin-bottom:0;">no blueprint required</span>`}
+        <span class="ready-pill ${st.ready ? 'yes':'no'}">${st.ready ? '✓ Ready to craft' : 'Not yet'}</span>
+      </div>
+      <div class="reqs" style="margin-top:12px;">
+        ${compareBlock('DOLL · ' + escapeHtml(item.dollName), item.dollQty, st.dollNeed, st.dollHave, st.dollOk)}
+        ${compareBlock('CORE · ' + escapeHtml(item.coreName), item.coreQty, st.coreNeed, st.coreHave, st.coreOk,
+          `<span class="badge" style="background:${elColor}; margin-right:6px;">${escapeHtml(item.coreName)}</span>`)}
+        ${compareBlock('COIN', item.coin, st.coinNeed, st.coinHave, st.coinOk)}
+      </div>
+    </div>
+  `;
+}
+
+function filteredItems(){
+  const q = state.search.trim().toLowerCase();
+  return DATA.filter(it => {
+    if(state.map !== "All" && it.map !== state.map) return false;
+    if(state.bpOnly && !it.blueprint) return false;
+    if(state.readyOnly && !itemStatus(it).ready) return false;
+    if(q){
+      const hay = (it.headwear + " " + it.dollName + " " + it.coreName + " " + it.map).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function renderTabs(){
+  const wrap = document.getElementById('mapTabs');
+  const allDone = DATA.filter(d => crafted[d.id]).length;
+  let html = `<button class="maptab ${state.map==='All'?'active':''}" data-map="All">All Towns <span class="count">${allDone}/${DATA.length}</span></button>`;
+  MAPS.forEach(m => {
+    const items = DATA.filter(d => d.map === m);
+    const done = items.filter(d => crafted[d.id]).length;
+    html += `<button class="maptab ${state.map===m?'active':''}" data-map="${m}">${m} <span class="count">${done}/${items.length}</span></button>`;
+  });
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('.maptab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.map = btn.dataset.map;
+      render();
+    });
+  });
+}
+
+function renderContent(){
+  const content = document.getElementById('content');
+  const items = filteredItems();
+
+  if(items.length === 0){
+    content.innerHTML = `<div class="empty-state"><div class="glyph">⚔</div>No headwear matches this search.</div>`;
+    return;
+  }
+
+  if(state.map !== "All"){
+    content.innerHTML = `<div class="grid">${items.map(itemCard).join('')}</div>`;
+  } else {
+    let html = "";
+    MAPS.forEach(m => {
+      const mItems = items.filter(d => d.map === m);
+      if(mItems.length === 0) return;
+      const done = mItems.filter(d => crafted[d.id]).length;
+      html += `<div class="section-title">${m} <span class="sub">${done} / ${mItems.length} crafted</span></div>`;
+      html += `<div class="grid">${mItems.map(itemCard).join('')}</div>`;
+    });
+    content.innerHTML = html;
+  }
+
+  content.querySelectorAll('.check').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      crafted[id] = !crafted[id];
+      saveProgress();
+      render();
+    });
+  });
+}
+
+function renderOverall(){
+  const total = DATA.length;
+  const done = DATA.filter(d => crafted[d.id]).length;
+  document.getElementById('overallCount').textContent = `${done} / ${total} crafted`;
+  document.getElementById('overallBar').style.width = total ? `${(done/total)*100}%` : '0%';
+
+  const readyCount = DATA.filter(d => itemStatus(d).ready && !crafted[d.id]).length;
+  document.getElementById('readyStat').innerHTML =
+    `<b>${readyCount}</b> item${readyCount===1?'':'s'} craftable right now with what you've entered above.`;
+}
+
+function render(){
+  renderTabs();
+  renderContent();
+  renderOverall();
+}
+
+// ---------- Stockpile panel: build once ----------
+function buildStockpilePanel(){
+  const coreWrap = document.getElementById('coreInputs');
+  coreWrap.innerHTML = CORES.map(name => `
+    <div class="stock-field">
+      <span class="dot" style="background:${ELEMENT_COLORS[name]}"></span>
+      <label for="core-${name}">${name}</label>
+      <input type="number" min="0" step="1" id="core-${name}" data-core="${name}" placeholder="0"
+        value="${inventory.cores[name] || ''}">
+    </div>
+  `).join('');
+
+  const dollWrap = document.getElementById('dollInputs');
+  dollWrap.innerHTML = DOLLS.map(name => `
+    <div class="stock-field">
+      <span class="dot" style="background:var(--el-neutral)"></span>
+      <label for="doll-${name}">${escapeHtml(name)}</label>
+      <input type="number" min="0" step="1" id="doll-${name}" data-doll="${name}" placeholder="0"
+        value="${inventory.dolls[name] || ''}">
+    </div>
+  `).join('');
+
+  document.getElementById('coin-input').value = inventory.coin || '';
+
+  coreWrap.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      inventory.cores[inp.dataset.core] = Number(inp.value) || 0;
+      saveInventory();
+      renderContent();
+      renderOverall();
+      renderTabs();
+    });
+  });
+  dollWrap.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      inventory.dolls[inp.dataset.doll] = Number(inp.value) || 0;
+      saveInventory();
+      renderContent();
+      renderOverall();
+      renderTabs();
+    });
+  });
+  document.getElementById('coin-input').addEventListener('input', (e) => {
+    inventory.coin = Number(e.target.value) || 0;
+    saveInventory();
+    renderContent();
+    renderOverall();
+    renderTabs();
+  });
+}
+
+document.getElementById('search').addEventListener('input', (e) => {
+  state.search = e.target.value;
+  renderContent();
+});
+
+const bpChip = document.getElementById('bpChip');
+const bpOnly = document.getElementById('bpOnly');
+bpOnly.addEventListener('change', () => {
+  state.bpOnly = bpOnly.checked;
+  bpChip.classList.toggle('on', bpOnly.checked);
+  renderContent();
+});
+
+const readyChip = document.getElementById('readyChip');
+const readyOnly = document.getElementById('readyOnly');
+readyOnly.addEventListener('change', () => {
+  state.readyOnly = readyOnly.checked;
+  readyChip.classList.toggle('on', readyOnly.checked);
+  renderContent();
+});
+
+const stockpilePanel = document.getElementById('stockpilePanel');
+const stockpileToggle = document.getElementById('stockpileToggle');
+let panelOpen = localStorage.getItem(PANEL_KEY) === '1';
+function setPanelOpen(open){
+  panelOpen = open;
+  stockpilePanel.classList.toggle('open', open);
+  stockpileToggle.classList.toggle('open', open);
+  localStorage.setItem(PANEL_KEY, open ? '1' : '0');
+}
+stockpileToggle.addEventListener('click', () => setPanelOpen(!panelOpen));
+setPanelOpen(panelOpen);
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(confirm('Reset all crafted progress? This cannot be undone.')){
+    crafted = {};
+    saveProgress();
+    render();
+  }
+});
+
+document.getElementById('resetInvBtn').addEventListener('click', () => {
+  if(confirm('Clear your entered stockpile (dolls, cores, coin)? This cannot be undone.')){
+    inventory = { coin: 0, dolls: {}, cores: {} };
+    saveInventory();
+    buildStockpilePanel();
+    render();
+  }
+});
+
+buildStockpilePanel();
+render();
+</script>
+</body>
+</html>
