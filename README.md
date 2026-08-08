@@ -1,6 +1,12 @@
-# RTNW Headwear Codex
+# Ragnarok: The New World - Headwear Tracker
+
+<p align="center">
+  <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2Fcajancharles%2FRONWHeadwearTracker&label=Visitors&icon=github&color=%23198754&message=&style=flat&tz=Asia%2FManila">
+</p>
 
 A free, browser-based crafting tracker for headwear — hats, masks, and trinkets — in **Ragnarok: The New World**. Enter what dolls, element cores, and coin you're holding, and instantly see what you can craft right now, what you're missing, and how close you are to finishing every headwear item across all six towns.
+
+![Guild League Lineup Builder screenshot](screenshot.png)
 
 **Live app:** [https://cajancharles.github.io/RONWHeadwearTracker/](https://cajancharles.github.io/RONWHeadwearTracker/)
 
